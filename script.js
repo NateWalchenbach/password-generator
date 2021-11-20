@@ -1,11 +1,7 @@
 function generatePassword() {
   let password = "";
   let characterSet = "";
-  const stringPasswordLength = window.prompt(
-    "How long would you like your password to be? (Default is 12 characters long.)",
-    "12"
-  );
-  const passwordLength = Number.parseInt(stringPasswordLength);
+  let passwordLength = getPasswordLength();
 
   const hasLowerCaseLetters = window.confirm(
     "Should generated password contain lower case letters?"
@@ -58,7 +54,10 @@ function getPasswordLength() {
   while (failedValidation) {
     stringPasswordLength = window.prompt("Type in a number between 8 and 128");
     passwordLength = Number.parseInt(stringPasswordLength);
-    failedValidation = passwordLength <= 8 && passwordLength >= 128;
+    failedValidation =
+      passwordLength < 8 ||
+      passwordLength > 128 ||
+      Number.isNaN(passwordLength);
   }
   return passwordLength;
 }
